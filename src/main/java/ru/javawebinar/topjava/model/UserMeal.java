@@ -6,28 +6,43 @@ import java.time.LocalDateTime;
  * GKislin
  * 11.01.2015.
  */
-public class UserMeal {
-    protected final LocalDateTime dateTime;
+public class UserMeal extends NamedEntity {
+    private LocalDateTime dateTime;
 
-    protected final String description;
+    private int calories;
 
-    protected final int calories;
+    private User user;
 
-    public UserMeal(LocalDateTime dateTime, String description, int calories) {
+    public UserMeal() {
+    }
+
+    public UserMeal(Integer id, String name, LocalDateTime dateTime, int calories, User user) {
+        super(id, name);
         this.dateTime = dateTime;
-        this.description = description;
         this.calories = calories;
+        this.user = user;
     }
 
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public int getCalories() {
         return calories;
+    }
+
+    @Override
+    public String toString() {
+        return "UserMeal{" +
+                "id=" + id +
+                ", user=" + user.getName() +
+                ", name=" + name +
+                ", date=" + dateTime.toLocalDate() +
+                ", calories=" + calories +
+                '}';
+    }
+
+    public User getUser() {
+        return user;
     }
 }

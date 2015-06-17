@@ -2,6 +2,8 @@ package ru.javawebinar.topjava.util.exception;
 
 
 import ru.javawebinar.topjava.LoggerWrapper;
+import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.model.UserMeal;
 
 /**
  * User: gkislin
@@ -25,5 +27,14 @@ public class ExceptionUtil {
 
     public static void check(boolean found, String msg) {
         if (!found) throw LOG.getNotFoundException("Not found entity with " + msg);
+    }
+
+    public static void checkMeal(UserMeal userMeal, int userId) {
+        if (userMeal.getUser().getId() != userId)
+            throw LOG.getNotFoundException(String.format(
+                    "Mismatch between LoggedUser(id=%d) and MealUser(id=%d)"
+                    ,userId
+                    ,userMeal.getUser().getId())
+            );
     }
 }

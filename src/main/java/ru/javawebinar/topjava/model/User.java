@@ -77,4 +77,6 @@ public class User extends NamedEntity {
                 ", roles=" + roles +
                 ')';
     }
+
+
 }
