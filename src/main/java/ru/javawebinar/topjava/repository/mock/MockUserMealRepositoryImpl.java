@@ -36,8 +36,8 @@ public class MockUserMealRepositoryImpl implements UserMealRepository {
     }
 
     @Override
-    public List<UserMeal> getAllByUser(User user) {
-        LOG.info("getAllByUser " + user.getName());
+    public List<UserMeal> getByUserId(int userId) {
+        LOG.info("getByUserId " + userId);
         return Collections.emptyList();
     }
 }

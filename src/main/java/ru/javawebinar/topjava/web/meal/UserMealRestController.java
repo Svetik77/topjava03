@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.web.meal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
@@ -21,34 +22,35 @@ public class UserMealRestController {
     @Autowired
     private UserMealService service;
 
-    public List<UserMeal> getAll() {
-        LOG.info("getAll");
-        return service.getAll();
-    }
-
-    public List<UserMeal> getByUser(User user) {
-        LOG.info("getByUser " + user.getName());
-        return service.getByUser(user);
+    public List<UserMeal> getAllMeal() {
+        int userId = LoggedUser.id();
+        LOG.info(String.format("Get all meal for user(id=%d)",userId));
+        return service.getByUserId(userId);
     }
 
     public UserMeal get(int id) {
-        LOG.info("get " + id);
-        return service.get(id);
+        int userId = LoggedUser.id();
+        LOG.info(String.format("Get meal(id=%d) by user(id=%d)",id,userId));
+        return service.get(id,userId);
     }
 
-    public UserMeal save(UserMeal userMeal) {
-        LOG.info("save " + userMeal);
-        return service.save(userMeal);
+    public UserMeal create(UserMeal userMeal) {
+        int userId = LoggedUser.id();
+        UserMeal newUserMeal = service.save(userMeal);
+        LOG.info(String.format("Save new meal(id=%d) by user(id=%d)",newUserMeal.getId(),userId));
+        return userMeal;
     }
 
     public void delete(int id) {
-        LOG.info("delete " + id);
-        service.delete(id);
+        int userId = LoggedUser.id();
+        LOG.info(String.format("Delete meal(id=%d) by user(id=%d)", id, userId));
+        service.delete(id, userId);
     }
 
     public void update(UserMeal userMeal) {
-        LOG.info("update " + userMeal);
-        service.update(userMeal);
+        int userId = LoggedUser.id();
+        LOG.info(String.format("Update meal(id=%d) by user(id=%d)",userMeal.getId(),userId));
+        service.update(userMeal,userId);
     }
 
 }

@@ -29,7 +29,7 @@ public class ExceptionUtil {
         if (!found) throw LOG.getNotFoundException("Not found entity with " + msg);
     }
 
-    public static void checkMeal(UserMeal userMeal, int userId) {
+    public static void checkIfMealBelongsToUser(UserMeal userMeal, int userId) {
         if (userMeal.getUser().getId() != userId)
             throw LOG.getNotFoundException(String.format(
                     "Mismatch between LoggedUser(id=%d) and MealUser(id=%d)"

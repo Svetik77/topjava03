@@ -14,11 +14,11 @@ public interface UserMealService {
 
     UserMeal save(UserMeal userMeal);
 
-    void delete(int id, User user) throws NotFoundException;
+    void delete(int id, int userId) throws NotFoundException;
 
-    UserMeal get(int id, User user) throws NotFoundException;
+    UserMeal get(int id, int userId) throws NotFoundException;
 
-    List<UserMeal> getByAllUser(User user);
+    List<UserMeal> getByUserId(int userId);
 
-    void update(UserMeal userMeal, User user) throws NotFoundException;
+    void update(UserMeal userMeal, int UserId) throws NotFoundException;
 }

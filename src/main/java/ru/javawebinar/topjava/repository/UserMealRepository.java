@@ -18,5 +18,5 @@ public interface UserMealRepository {
     // null if not found
     UserMeal get(int id);
 
-    List<UserMeal> getAllByUser(User user);
+    List<UserMeal> getByUserId(int userId);
 }
