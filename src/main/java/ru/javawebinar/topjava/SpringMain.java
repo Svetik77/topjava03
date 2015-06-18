@@ -33,16 +33,13 @@ public class SpringMain {
             UserMeal userMeal = new UserMeal(0,"Завтрак", LocalDateTime.of(2015, Month.JUNE, 17, 10, 0),1000,user);
             UserMealRestController userMealRestController = appCtx.getBean(UserMealRestController.class);
             System.out.println(userMealRestController.create(userMeal));
-            System.out.println(userMealRestController.getByUserIdDateRange(
-                    LocalDateTime.of(2015, Month.JUNE, 15, 10, 0),
-                    LocalDateTime.of(2015, Month.JUNE, 18, 10, 0)
-            ));
-
 
             System.out.println(userMealRestController.getAllMealWithExceed());
-            System.out.println(userMealRestController.getByUserIdDateRangeWithExceed(
+            System.out.println(userMealRestController.getFilteredByUserIdDateRangeWithExceed(
                     LocalDateTime.of(2015, Month.JUNE, 15, 10, 0),
-                    LocalDateTime.of(2015, Month.JUNE, 18, 10, 0)
+                    LocalDateTime.of(2015, Month.JUNE, 18, 10, 0),
+                    LocalTime.of(10, 0),
+                    LocalTime.of(12,0)
             ));
         }
     }

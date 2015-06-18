@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.LoggerWrapper;
-import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.model.UserMealWithExceed;
 import ru.javawebinar.topjava.service.UserMealService;
 import ru.javawebinar.topjava.util.UserMealsUtil;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -56,12 +56,6 @@ public class UserMealRestController {
         service.update(userMeal,userId);
     }
 
-    public List<UserMeal> getByUserIdDateRange(LocalDateTime from, LocalDateTime to) {
-        int userId = LoggedUser.id();
-        LOG.info(String.format("Get meal for user(id=%d) in range between %s and %s", userId,from.toString(),to.toString()));
-        return service.getByUserIdDateRange(userId,from,to);
-    }
-
     public void deleteAll() {
         int userId = LoggedUser.id();
         LOG.info(String.format("Delete all meal for user(id=%d)", userId));
@@ -76,8 +70,24 @@ public class UserMealRestController {
 
     public List<UserMealWithExceed> getByUserIdDateRangeWithExceed(LocalDateTime from, LocalDateTime to) {
         int userId = LoggedUser.id();
-        LOG.info(String.format("Get meal with exceed for user(id=%d) in range between %s and %s", userId,from.toString(),to.toString()));
+        LOG.info(String.format("Get meal with exceed for user(id=%d) in range between %s and %s",
+                userId,
+                from.toLocalDate().toString(),
+                to.toLocalDate().toString()
+        ));
         return UserMealsUtil.getMealsWithExceeded(service.getByUserIdDateRange(userId, from, to), LoggedUser.getCaloriesPerDay());
+    }
+
+    public List<UserMealWithExceed> getFilteredByUserIdDateRangeWithExceed(LocalDateTime from, LocalDateTime to, LocalTime startTime, LocalTime endTime) {
+        int userId = LoggedUser.id();
+        LOG.info(String.format("Get meal with exceed for user(id=%d) in range between %s and %s. Time: %s - %s",
+                userId,
+                from.toLocalDate().toString(),
+                to.toLocalDate().toString(),
+                startTime.toString(),
+                endTime.toString()
+        ));
+        return UserMealsUtil.getFilteredMealsWithExceeded(service.getByUserIdDateRange(userId,from,to),startTime,endTime,LoggedUser.getCaloriesPerDay());
     }
 
 }
