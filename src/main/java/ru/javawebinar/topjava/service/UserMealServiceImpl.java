@@ -54,4 +54,9 @@ public class UserMealServiceImpl implements UserMealService {
     public List<UserMeal> getByUserIdDateRange(int userId, LocalDateTime from, LocalDateTime to) {
         return repository.getByUserIdDateRange(userId, from, to);
     }
+
+    @Override
+    public void deleteAll(int userId) {
+        repository.deleteAll(userId);
+    }
 }

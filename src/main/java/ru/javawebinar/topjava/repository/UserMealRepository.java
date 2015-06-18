@@ -21,4 +21,6 @@ public interface UserMealRepository {
     List<UserMeal> getByUserId(int userId);
 
     List<UserMeal> getByUserIdDateRange(int userId, LocalDateTime from, LocalDateTime to);
+
+    void deleteAll(int userId);
 }

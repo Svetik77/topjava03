@@ -40,6 +40,10 @@ public class SpringMain {
 
 
             System.out.println(userMealRestController.getAllMealWithExceed());
+            System.out.println(userMealRestController.getByUserIdDateRangeWithExceed(
+                    LocalDateTime.of(2015, Month.JUNE, 15, 10, 0),
+                    LocalDateTime.of(2015, Month.JUNE, 18, 10, 0)
+            ));
         }
     }
 }

@@ -47,4 +47,9 @@ public class MockUserMealRepositoryImpl implements UserMealRepository {
         LOG.info("get DateTime range for user " + userId);
         return Collections.emptyList();
     }
+
+    @Override
+    public void deleteAll(int userId) {
+        LOG.info("delete all meal " + userId);
+    }
 }

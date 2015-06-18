@@ -62,6 +62,12 @@ public class UserMealRestController {
         return service.getByUserIdDateRange(userId,from,to);
     }
 
+    public void deleteAll() {
+        int userId = LoggedUser.id();
+        LOG.info(String.format("Delete all meal for user(id=%d)", userId));
+        service.deleteAll(userId);
+    }
+
     public List<UserMealWithExceed> getAllMealWithExceed() {
         int userId = LoggedUser.id();
         LOG.info(String.format("Get all meal with exceed for user(id=%d)",userId));

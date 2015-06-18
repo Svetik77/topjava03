@@ -23,4 +23,6 @@ public interface UserMealService {
     void update(UserMeal userMeal, int UserId) throws NotFoundException;
 
     List<UserMeal> getByUserIdDateRange(int userId, LocalDateTime from, LocalDateTime to);
+
+    void deleteAll(int userId);
 }
