@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.repository.UserMealRepository;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -47,5 +48,10 @@ public class UserMealServiceImpl implements UserMealService {
     public void update(UserMeal userMeal, int userId) throws NotFoundException {
         ExceptionUtil.checkIfMealBelongsToUser(userMeal, userId);
         ExceptionUtil.check(repository.save(userMeal), userMeal.getId());
+    }
+
+    @Override
+    public List<UserMeal> getByUserIdDateRange(int userId, LocalDateTime from, LocalDateTime to) {
+        return repository.getByUserIdDateRange(userId, from, to);
     }
 }

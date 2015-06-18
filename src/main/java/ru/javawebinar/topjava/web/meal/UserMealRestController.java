@@ -7,8 +7,11 @@ import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
+import ru.javawebinar.topjava.model.UserMealWithExceed;
 import ru.javawebinar.topjava.service.UserMealService;
+import ru.javawebinar.topjava.util.UserMealsUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -51,6 +54,24 @@ public class UserMealRestController {
         int userId = LoggedUser.id();
         LOG.info(String.format("Update meal(id=%d) by user(id=%d)",userMeal.getId(),userId));
         service.update(userMeal,userId);
+    }
+
+    public List<UserMeal> getByUserIdDateRange(LocalDateTime from, LocalDateTime to) {
+        int userId = LoggedUser.id();
+        LOG.info(String.format("Get meal for user(id=%d) in range between %s and %s", userId,from.toString(),to.toString()));
+        return service.getByUserIdDateRange(userId,from,to);
+    }
+
+    public List<UserMealWithExceed> getAllMealWithExceed() {
+        int userId = LoggedUser.id();
+        LOG.info(String.format("Get all meal with exceed for user(id=%d)",userId));
+        return UserMealsUtil.getMealsWithExceeded(service.getByUserId(userId),LoggedUser.getCaloriesPerDay());
+    }
+
+    public List<UserMealWithExceed> getByUserIdDateRangeWithExceed(LocalDateTime from, LocalDateTime to) {
+        int userId = LoggedUser.id();
+        LOG.info(String.format("Get meal with exceed for user(id=%d) in range between %s and %s", userId,from.toString(),to.toString()));
+        return UserMealsUtil.getMealsWithExceeded(service.getByUserIdDateRange(userId, from, to), LoggedUser.getCaloriesPerDay());
     }
 
 }

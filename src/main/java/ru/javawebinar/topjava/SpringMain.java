@@ -5,12 +5,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
+import ru.javawebinar.topjava.model.UserMealWithExceed;
 import ru.javawebinar.topjava.web.meal.UserMealRestController;
 import ru.javawebinar.topjava.web.user.AdminUserRestController;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * User: gkislin
@@ -30,7 +33,13 @@ public class SpringMain {
             UserMeal userMeal = new UserMeal(0,"Завтрак", LocalDateTime.of(2015, Month.JUNE, 17, 10, 0),1000,user);
             UserMealRestController userMealRestController = appCtx.getBean(UserMealRestController.class);
             System.out.println(userMealRestController.create(userMeal));
-            System.out.println(userMealRestController.getAllMeal());
+            System.out.println(userMealRestController.getByUserIdDateRange(
+                    LocalDateTime.of(2015, Month.JUNE, 15, 10, 0),
+                    LocalDateTime.of(2015, Month.JUNE, 18, 10, 0)
+            ));
+
+
+            System.out.println(userMealRestController.getAllMealWithExceed());
         }
     }
 }

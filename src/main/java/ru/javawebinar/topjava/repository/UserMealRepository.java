@@ -1,8 +1,8 @@
 package ru.javawebinar.topjava.repository;
 
-import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -19,4 +19,6 @@ public interface UserMealRepository {
     UserMeal get(int id);
 
     List<UserMeal> getByUserId(int userId);
+
+    List<UserMeal> getByUserIdDateRange(int userId, LocalDateTime from, LocalDateTime to);
 }

@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +39,12 @@ public class MockUserMealRepositoryImpl implements UserMealRepository {
     @Override
     public List<UserMeal> getByUserId(int userId) {
         LOG.info("getByUserId " + userId);
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<UserMeal> getByUserIdDateRange(int userId, LocalDateTime from, LocalDateTime to) {
+        LOG.info("get DateTime range for user " + userId);
         return Collections.emptyList();
     }
 }
