@@ -93,8 +93,8 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
     @Override
     public List<UserMeal> getAll(int userId) {
         return jdbcTemplate.query(
-                "SELECT id, description, calories, datetime FROM meals ORDER BY datetime DESC",
-                ROW_MAPPER);
+                "SELECT id, description, calories, datetime FROM meals WHERE user_id=? ORDER BY datetime DESC",
+                ROW_MAPPER,userId);
     }
 
     @Override
