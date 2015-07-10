@@ -18,7 +18,7 @@ import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 
-public class UserMealServiceTest extends BaseServiceTest {
+abstract public class UserMealServiceTest extends BaseServiceTest {
 
     @Autowired
     protected UserMealService service;

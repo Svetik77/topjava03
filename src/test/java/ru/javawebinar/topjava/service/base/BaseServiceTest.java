@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @ActiveProfiles("postgres")
-public class BaseServiceTest {
+abstract public class BaseServiceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 }
