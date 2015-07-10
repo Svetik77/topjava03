@@ -1,11 +1,14 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.UserTestData.*;
 import ru.javawebinar.topjava.model.Role;
@@ -23,12 +26,19 @@ import static ru.javawebinar.topjava.UserTestData.*;
         "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-@Sql("classpath:db/populateDB.sql")
+@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@ActiveProfiles("postgres")
+//@ActiveProfiles("hsqldb")
 public class UserServiceTest {
 
     @Autowired
     protected UserService service;
 
+    @Before
+    public void setUp() throws Exception {
+        service.evictCache();
+    }
+        
     @Test
     public void testSave() throws Exception {
         TestUser tu = new TestUser("New", "new@gmail.com", "newPass", Role.ROLE_USER);
