@@ -5,7 +5,7 @@ import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.UserMealWithExceed;
 import ru.javawebinar.topjava.web.meal.UserMealRestController;
-import ru.javawebinar.topjava.web.user.AdminUserRestController;
+import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,12 +23,12 @@ public class SpringMain {
 //        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext()) {
         try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
             appCtx.getEnvironment().setActiveProfiles(Profiles.POSTGRES, Profiles.DATAJPA);
-            appCtx.load("spring/spring-app.xml", "spring/spring-db.xml");
+            appCtx.load("spring/spring-app.xml", "spring/spring-mvc.xml", "spring/spring-db.xml");
 //            appCtx.load("spring/spring-app.xml", "spring/mock.xml");
             appCtx.refresh();
 
             System.out.println(Arrays.toString(appCtx.getBeanDefinitionNames()));
-            AdminUserRestController adminUserController = appCtx.getBean(AdminUserRestController.class);
+            AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
             System.out.println(adminUserController.create(new User(1, "userName", "email", "password", Role.ROLE_ADMIN)));
             System.out.println();
             UserMealRestController mealController = appCtx.getBean(UserMealRestController.class);
