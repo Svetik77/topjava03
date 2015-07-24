@@ -3,6 +3,7 @@ package ru.javawebinar.topjava;
 import ru.javawebinar.topjava.TestUtil.ToStringModelMatcher;
 import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.UserMeal;
+import ru.javawebinar.topjava.to.UserMealWithExceed;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -39,4 +40,16 @@ public class MealTestData {
     }
 
     public static final ModelMatcher<UserMeal, String> MATCHER = new ToStringModelMatcher<>(UserMeal.class);
+
+    public static class WithExceed {
+        public static final UserMealWithExceed MEAL1_EXCEED = new UserMealWithExceed(MEAL1, false);
+        public static final UserMealWithExceed MEAL2_EXCEED = new UserMealWithExceed(MEAL2, false);
+        public static final UserMealWithExceed MEAL3_EXCEED = new UserMealWithExceed(MEAL3, false);
+        public static final UserMealWithExceed MEAL4_EXCEED = new UserMealWithExceed(MEAL4, true);
+        public static final UserMealWithExceed MEAL5_EXCEED = new UserMealWithExceed(MEAL5, true);
+        public static final UserMealWithExceed MEAL6_EXCEED = new UserMealWithExceed(MEAL6, true);
+
+        public static final ModelMatcher<UserMealWithExceed, String> MATCHER_EXCEED = new ToStringModelMatcher<>(UserMealWithExceed.class);
+
+    }
 }

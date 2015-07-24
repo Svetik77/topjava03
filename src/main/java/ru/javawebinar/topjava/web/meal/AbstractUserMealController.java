@@ -48,8 +48,9 @@ public class AbstractUserMealController {
         service.deleteAll(userId);
     }
 
-    public void update(UserMeal meal) {
+    public void update(UserMeal meal, int id) {
         int userId = LoggedUser.id();
+        meal.setId(id);
         LOG.info("update {} for User {}", meal, userId);
         service.update(meal, userId);
     }

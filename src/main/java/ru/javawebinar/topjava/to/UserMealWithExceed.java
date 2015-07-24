@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.to;
 
+import ru.javawebinar.topjava.model.UserMeal;
+
 import java.time.LocalDateTime;
 
 /**
@@ -7,15 +9,15 @@ import java.time.LocalDateTime;
  * 11.01.2015.
  */
 public class UserMealWithExceed {
-    protected final Integer id;
+    protected Integer id;
 
-    protected final LocalDateTime dateTime;
+    protected LocalDateTime dateTime;
 
-    protected final String description;
+    protected String description;
 
-    protected final int calories;
+    protected int calories;
 
-    protected final boolean exceed;
+    protected boolean exceed;
 
     public UserMealWithExceed(Integer id, LocalDateTime dateTime, String description, int calories, boolean exceed) {
         this.id = id;
@@ -23,6 +25,17 @@ public class UserMealWithExceed {
         this.description = description;
         this.calories = calories;
         this.exceed = exceed;
+    }
+
+    public UserMealWithExceed(UserMeal meal, boolean exceed) {
+        this.id = meal.getId();
+        this.dateTime = meal.getDateTime();
+        this.description = meal.getDescription();
+        this.calories = meal.getCalories();
+        this.exceed = exceed;
+    }
+
+    public UserMealWithExceed() {
     }
 
     @Override

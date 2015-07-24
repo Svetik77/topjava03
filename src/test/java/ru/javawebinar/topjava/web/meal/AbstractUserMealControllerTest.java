@@ -34,7 +34,7 @@ public class AbstractUserMealControllerTest {
     protected MockMvc mockMvc;
 
     @Autowired
-    private UserMealService userMealService;
+    protected UserMealService userMealService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;

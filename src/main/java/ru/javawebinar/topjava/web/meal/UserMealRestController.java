@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,21 +22,22 @@ import java.util.List;
 @RequestMapping(UserMealRestController.REST_URL)
 public class UserMealRestController extends AbstractUserMealController {
     static final String REST_URL = "/rest/meals";
+    static final String APPLICATION_JSON_UTF8 = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8";
 
     @Override
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserMeal get(@PathVariable("id")int id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = APPLICATION_JSON_UTF8)
+    public UserMeal get(@PathVariable("id") int id) {
         return super.get(id);
     }
 
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id")int id) {
+    public void delete(@PathVariable("id") int id) {
         super.delete(id);
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET, produces = APPLICATION_JSON_UTF8)
     public List<UserMealWithExceed> getAll() {
         return super.getAll();
     }
@@ -47,12 +49,12 @@ public class UserMealRestController extends AbstractUserMealController {
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody UserMeal meal) {
-        super.update(meal);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody UserMeal meal, @PathVariable("id") int id) {
+        super.update(meal,id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_UTF8)
     public ResponseEntity<UserMeal> createWithLocation(@RequestBody UserMeal meal) {
         UserMeal created = super.create(meal);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -64,9 +66,14 @@ public class UserMealRestController extends AbstractUserMealController {
         return new ResponseEntity<>(created, httpHeaders, HttpStatus.CREATED);
     }
 
-//    @Override
-//    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public List<UserMealWithExceed> getBetween(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
-//        return super.getBetween(startDate, startTime, endDate, endTime);
-//    }
+    @Override
+    @RequestMapping(method = RequestMethod.GET, produces = APPLICATION_JSON_UTF8,
+            params = {"startDate","endDate","startTime","endTime"})
+    public List<UserMealWithExceed> getBetween(
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("startTime") LocalTime startTime,
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("endTime")LocalTime endTime) {
+        return super.getBetween(startDate, startTime, endDate, endTime);
+    }
 }
