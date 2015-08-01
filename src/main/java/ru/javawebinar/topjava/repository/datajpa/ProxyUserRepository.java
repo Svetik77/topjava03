@@ -33,4 +33,9 @@ public interface ProxyUserRepository extends JpaRepository<User, Integer> {
     List<User> findAll(Sort sort);
 
     User getByEmail(String email);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE User u SET u.enabled=:enabled WHERE u.id=:id")
+    int changeEnabledStatus(@Param("id") int id, @Param("enabled") boolean enabled);
 }

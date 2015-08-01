@@ -23,6 +23,8 @@ public interface UserService {
     List<User> getAll();
 
     void update(User user) throws NotFoundException;
+
+    public void changeEnabledStatus(int id, boolean enabled);
     
     public void evictCache();
 }

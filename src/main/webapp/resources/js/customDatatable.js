@@ -81,3 +81,17 @@ function failNoty(event, jqXHR, options, jsExc) {
         layout: 'bottomRight'
     });
 }
+
+function changeEnabledStatus(id, status, name) {
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl + id + "?enabled=" + status,
+        success: function (data) {
+            if(status) {
+                successNoty(name + " is enabled");
+            } else {
+                successNoty(name + " is disabled");
+            }
+        }
+    });
+}

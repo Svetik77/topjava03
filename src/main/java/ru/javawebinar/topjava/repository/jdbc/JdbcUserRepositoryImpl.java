@@ -84,4 +84,9 @@ public class JdbcUserRepositoryImpl implements UserRepository {
                 "SELECT id, name, email, password, registered, enabled FROM users ORDER BY name, email",
                 ROW_MAPPER);
     }
+
+    @Override
+    public boolean changeEnabledStatus(int id, boolean enabled) {
+        throw new UnsupportedOperationException();
+    }
 }

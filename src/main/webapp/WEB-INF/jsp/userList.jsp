@@ -90,6 +90,10 @@
 //        $(document).ready(function () {
     $(function () {
         makeEditable();
+        $("input:checkbox").change(function() {
+            var enabled = $(this).is(":checked");
+            changeEnabledStatus($(this).attr("id"),$(this).is(":checked"),$(this).parent('td').prev().prev().prev().text())
+        })
     });
 </script>
 </html>

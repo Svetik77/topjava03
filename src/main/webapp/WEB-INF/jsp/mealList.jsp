@@ -105,6 +105,7 @@
     $(function () {
         makeEditable();
         $("#datetime").datetimepicker({ format: Date.patterns.SortableDateTimePattern });
+        oTable_datatable.fnSort([[ 0, "desc" ]]);
     });
 </script>
 </html>

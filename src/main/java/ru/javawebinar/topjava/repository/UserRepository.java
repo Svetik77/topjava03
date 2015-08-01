@@ -21,4 +21,6 @@ public interface UserRepository {
     User getByEmail(String email);
 
     List<User> getAll();
+
+    boolean changeEnabledStatus(int id, boolean enabled);
 }

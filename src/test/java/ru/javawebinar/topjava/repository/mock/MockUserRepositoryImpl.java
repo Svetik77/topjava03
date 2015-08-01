@@ -52,9 +52,15 @@ public class MockUserRepositoryImpl implements UserRepository {
         return Collections.emptyList();
     }
 
+
     @Override
     public User getByEmail(String email) {
         LOG.info("getByEmail " + email);
         return null;
+    }
+
+    @Override
+    public boolean changeEnabledStatus(int id, boolean enabled) {
+        throw new UnsupportedOperationException();
     }
 }
