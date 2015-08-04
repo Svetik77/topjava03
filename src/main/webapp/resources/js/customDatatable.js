@@ -1,4 +1,6 @@
 function makeEditable() {
+    form = $('#detailsForm');
+
     $('#add').click(function () {
         $('#item_id').val(0);
         $('#editRow').modal();
@@ -8,7 +10,7 @@ function makeEditable() {
         deleteRow($(this).attr("id"));
     });
 
-    $('#detailsForm').submit(function () {
+    form.submit(function () {
         save();
         return false;
     });
@@ -29,6 +31,19 @@ function deleteRow(id) {
     });
 }
 
+function enable(chkbox) {
+    var enabled = chkbox.is(":checked");
+    chkbox.closest('tr').css("text-decoration", enabled ? "none" : "line-through");
+    $.ajax({
+        url: ajaxUrl + chkbox.attr('id'),
+        type: 'POST',
+        data: 'enabled=' + enabled,
+        success: function () {
+            successNoty(enabled ? 'Enabled' : 'Disabled');
+        }
+    });
+}
+
 function updateTable() {
     $.get(ajaxUrl, function (data) {
         oTable_datatable.fnClearTable();
@@ -36,16 +51,15 @@ function updateTable() {
             oTable_datatable.fnAddData(item);
         });
         oTable_datatable.fnDraw();
+        init();
     });
 }
 
 function save() {
-    var frm = $('#detailsForm');
-    debugger;
     $.ajax({
         type: "POST",
         url: ajaxUrl,
-        data: frm.serialize(),
+        data: form.serialize(),
         success: function (data) {
             $('#editRow').modal('hide');
             updateTable();
