@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.web.user;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.TestUtil;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
@@ -29,25 +28,34 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL))
+        TestUtil.print(mockMvc.perform(get(REST_URL)
+                .with(TestUtil.userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(USER)));
     }
 
     @Test
+    public void testGetUnauth() throws Exception {
+        mockMvc.perform(get(REST_URL).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .with(TestUtil.userHttpBasic(USER)))
                 .andExpect(status().isOk());
         MATCHER.assertListEquals(Collections.singletonList(ADMIN), service.getAll());
     }
 
     @Test
     public void testUpdate() throws Exception {
-        User updatedUser = service.get(LoggedUser.id());
-        UserTo updatedTo = new UserTo(LoggedUser.id(), "newName", "newEmail", "newPassword");
+        User updatedUser = service.get(USER_ID);
+        UserTo updatedTo = new UserTo(USER_ID, "newName", "newEmail", "newPassword");
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .with(TestUtil.userHttpBasic(USER))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isOk());
