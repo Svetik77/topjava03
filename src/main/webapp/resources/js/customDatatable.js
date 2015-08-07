@@ -23,11 +23,9 @@ function updateRow(id) {
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             if(key == "dateTime"){
-                var dateTimeValue = (value + '').split(" ")[0] + "T" + (value + '').split(" ")[1] + ":00.000";
-                form.find("input[name='dateTime']").val(dateTimeValue);
-            } else {
-                form.find("input[name='" + key + "']").val(value);
+                value = (value + '').split(" ")[0] + "T" + (value + '').split(" ")[1] + ":00.000";
             }
+            form.find("input[name='" + key + "']").val(value);
         });
         $('#editRow').modal();
     });
