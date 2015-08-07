@@ -2,6 +2,7 @@ function makeEditable() {
     form = $('#detailsForm');
 
     $('#add').click(function () {
+        form.find("input").val(null);
         $('#id').val(0);
         $('#editRow').modal();
     });
@@ -21,7 +22,12 @@ function makeEditable() {
 function updateRow(id) {
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
-            form.find("input[name='" + key + "']").val(value);
+            if(key == "dateTime"){
+                var dateTimeValue = (value + '').split(" ")[0] + "T" + (value + '').split(" ")[1] + ":00.000";
+                form.find("input[name='dateTime']").val(dateTimeValue);
+            } else {
+                form.find("input[name='" + key + "']").val(value);
+            }
         });
         $('#editRow').modal();
     });
@@ -137,4 +143,10 @@ function renderCheckbox(data, type, row) {
         return '<input type="checkbox"' + (data ? ' checked ' : ' ') + 'onclick="enable(' + row.id + ',$(this))"/>';
     }
     return data;
+}
+
+function markExceededRows(row, data, dataIndex) {
+    if (data.exceed) {
+        $(row).css("color", "red");
+    }
 }

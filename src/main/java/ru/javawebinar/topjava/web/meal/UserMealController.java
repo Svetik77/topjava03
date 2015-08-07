@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.javawebinar.topjava.LoggedUser;
+import ru.javawebinar.topjava.model.BaseEntity;
 import ru.javawebinar.topjava.service.UserMealService;
 
 /**

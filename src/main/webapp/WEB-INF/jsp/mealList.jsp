@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 <%@ taglib prefix="dandelion" uri="http://github.com/dandelion" %>
+<%@ taglib prefix="database" uri="http://github.com/dandelion/datatables" %>
 
 <html>
 <dandelion:bundle includes="topjavaDatatable"/>
@@ -16,19 +17,30 @@
         <div class="shadow">
             <h3><fmt:message key="meals.title"/></h3>
 
+
+            <c:set var="ajaxUrl" value="ajax/profile/meals/"/>
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add">Add Meal</a>
-                <datatables:table id="datatable" data="${mealList}" row="meal" theme="bootstrap3"
+                <datatables:table id="datatable" url="${ajaxUrl}" row="meal" theme="bootstrap3"
                                   cssClass="table table-striped" pageable="false" info="false">
-                    <datatables:column title="Date">
-                        <%--${TimeUtil.toString(meal.getDateTime())}  work for tomcat (jasper) 8.0.23 --%>
-                        <%=TimeUtil.toString(((UserMeal) meal).getDateTime())%>
-                    </datatables:column>
+                    <datatables:column title="Datetime" sortInitDirection="desc" property="dateTime"/>
                     <datatables:column title="Description" property="description"/>
                     <datatables:column title="Calories" property="calories"/>
-                    <datatables:column filterable="false" sortable="false">
-                        <a class="btn btn-xs btn-danger delete" id="${meal.id}">Delete</a>
-                    </datatables:column>
+                    <datatables:column sortable="false" renderFunction="renderUpdateBtn"/>
+                    <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
+
+                    <datatables:callback type="createdrow" function="markExceededRows"/>
+                    <datatables:callback type="init" function="makeEditable"/>
+
+                    <%--<datatables:column title="Date">--%>
+                        <%--&lt;%&ndash;${TimeUtil.toString(meal.getDateTime())}  work for tomcat (jasper) 8.0.23 &ndash;%&gt;--%>
+                        <%--<%=TimeUtil.toString(((UserMeal) meal).getDateTime())%>--%>
+                    <%--</datatables:column>--%>
+                    <%--<datatables:column title="Description" property="description"/>--%>
+                    <%--<datatables:column title="Calories" property="calories"/>--%>
+                    <%--<datatables:column filterable="false" sortable="false">--%>
+                        <%--<a class="btn btn-xs btn-danger delete" id="${meal.id}">Delete</a>--%>
+                    <%--</datatables:column>--%>
                 </datatables:table>
             </div>
         </div>
@@ -47,11 +59,11 @@
                     <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="datetime" class="control-label col-xs-3">Date</label>
+                        <label for="dateTime" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="datetime"
-                                   name="datetime" placeholder="Date">
+                            <input type="datetime-local" class="form-control" id="dateTime"
+                                   name="dateTime" placeholder="Date">
                         </div>
                     </div>
                     <div class="form-group">
@@ -82,10 +94,7 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl = 'ajax/profile/meals/';
-    $(function () {
-        makeEditable();
-    });
+    var ajaxUrl = '${ajaxUrl}';
 
     function init() {
     }
