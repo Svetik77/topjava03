@@ -47,8 +47,8 @@ public class LoggedUser implements UserDetails, Serializable {
     }
 
     public static int id() {
-//        return get().userTo.getId();
-        return BaseEntity.START_SEQ;
+        return get().userTo.getId();
+//        return BaseEntity.START_SEQ;
     }
 
     @Override
