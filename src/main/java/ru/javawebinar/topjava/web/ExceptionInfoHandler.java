@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.util.exception.ErrorInfo;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
+import ru.javawebinar.topjava.util.exception.UnprocessibleEntityException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,4 +44,13 @@ public class ExceptionInfoHandler {
     ErrorInfo handleError(HttpServletRequest req, Exception e) {
         return LOG.getErrorInfo(req.getRequestURL(), e);
     }
+
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(UnprocessibleEntityException.class)
+    @ResponseBody
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    ErrorInfo handleError(HttpServletRequest req, UnprocessibleEntityException e) {
+        return LOG.getErrorInfo(req.getRequestURL(), e);
+    }
+
 }

@@ -56,6 +56,10 @@ public class User extends NamedEntity {
 //    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.EAGER)
 //    private List<UserMeal> userMeals;
 
+    @Column(name = "caloriesPerDay")
+    @NotNull
+    protected int caloriesPerDay = 2000;
+
     public User() {
     }
 
@@ -117,6 +121,14 @@ public class User extends NamedEntity {
 
     public void setRoles(Collection<Role> authorities) {
         this.roles = EnumSet.copyOf(authorities);
+    }
+
+    public int getCaloriesPerDay() {
+        return caloriesPerDay;
+    }
+
+    public void setCaloriesPerDay(int caloriesPerDay) {
+        this.caloriesPerDay = caloriesPerDay;
     }
 
     @Override

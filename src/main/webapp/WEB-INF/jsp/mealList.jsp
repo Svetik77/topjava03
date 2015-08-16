@@ -17,6 +17,30 @@
 
             <c:set var="ajaxUrl" value="ajax/profile/meals/"/>
             <div class="view-box">
+                <form:form id="filter" method="post" class="form-horizontal" acceptCharset="utf-8" action="ajax/profile/meals/filter">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">From date:</label>
+                        <div class="col-xs-3">
+                            <input id="startDate" name="startDate" placeholder="Start Date" class="form-control date-picker" type="date"/>
+                        </div>
+                        <label class="control-label col-xs-3">From date:</label>
+                        <div class="col-xs-3">
+                            <input id="endDate" name="endDate" placeholder="End Date" class="form-control date-picker" type="date"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">From time:</label>
+                        <div class="col-xs-3">
+                            <input id="startTime" name="startTime" placeholder="Start Time" class="form-control time-picker" type="time"/>
+                        </div>
+                        <label class="control-label col-xs-3">From date:</label>
+                        <div class="col-xs-3">
+                            <input id="endTime" name="endTime" placeholder="End Time" class="form-control time-picker" type="time"/>
+                        </div>
+                    </div>
+                </form:form>
+            </div>
+            <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add">Add Meal</a>
                 <datatables:table id="datatable" url="${ajaxUrl}" row="user" theme="bootstrap3"
                                   cssClass="table table-striped" pageable="false" info="false">

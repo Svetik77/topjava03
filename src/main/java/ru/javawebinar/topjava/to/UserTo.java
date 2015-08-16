@@ -3,6 +3,8 @@ package ru.javawebinar.topjava.to;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class UserTo {
@@ -11,11 +13,12 @@ public class UserTo {
     public UserTo() {
     }
 
-    public UserTo(int id, String name, String email, String password) {
+    public UserTo(int id, String name, String email, String password, int caloriesPerDay) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.caloriesPerDay = caloriesPerDay;
     }
 
     @NotEmpty
@@ -27,6 +30,10 @@ public class UserTo {
 
     @Size(min = 5, max = 15, message = " must between 5 and 15 characters")
     protected String password;
+
+    @Min(1)
+    @NotNull
+    protected int caloriesPerDay;
 
     public void setId(int id) {
         this.id = id;
@@ -62,6 +69,14 @@ public class UserTo {
 
     public String getEmail() {
         return email;
+    }
+
+    public int getCaloriesPerDay() {
+        return caloriesPerDay;
+    }
+
+    public void setCaloriesPerDay(int caloriesPerDay) {
+        this.caloriesPerDay = caloriesPerDay;
     }
 
     @Override

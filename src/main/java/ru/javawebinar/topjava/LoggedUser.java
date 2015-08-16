@@ -55,6 +55,7 @@ public class LoggedUser implements UserDetails, Serializable {
     public UserTo update(UserTo updatedTo) {
         userTo.setName(updatedTo.getName());
         userTo.setEmail(updatedTo.getEmail());
+        userTo.setCaloriesPerDay(updatedTo.getCaloriesPerDay());
         String newPassword = updatedTo.getPassword();
         userTo.setPassword(newPassword);
         encodedPassword = PasswordUtil.encode(newPassword);
@@ -82,7 +83,7 @@ public class LoggedUser implements UserDetails, Serializable {
     }
 
     public static int getCaloriesPerDay() {
-        return 2000;
+        return get().userTo.getCaloriesPerDay();
     }
 
     @Override

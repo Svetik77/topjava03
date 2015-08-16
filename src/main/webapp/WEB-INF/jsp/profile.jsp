@@ -25,6 +25,7 @@
 
                     <topjava:inputField label="Name" name="name"/>
                     <topjava:inputField label="Email" name="email"/>
+                    <topjava:inputField name="caloriesPerDay" label="Calories per Day"/>
                     <topjava:inputField label="Password" name="password" inputType="password"/>
 
                     <div class="form-group">
