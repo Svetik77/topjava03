@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,6 +13,7 @@ import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.to.UserTo;
 import ru.javawebinar.topjava.util.UserUtil;
 import ru.javawebinar.topjava.web.user.AbstractUserController;
+import ru.javawebinar.topjava.web.user.AdminAjaxController;
 
 import javax.validation.Valid;
 
@@ -21,7 +23,10 @@ import javax.validation.Valid;
  */
 
 @Controller
-public class RootController extends AbstractUserController {
+public class RootController {
+
+    @Autowired
+    private AdminAjaxController userController;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
@@ -61,7 +66,7 @@ public class RootController extends AbstractUserController {
             return "profile";
         } else {
             status.setComplete();
-            super.update(LoggedUser.get().update(userTo));
+            userController.update(LoggedUser.get().update(userTo));
             return "redirect:meals";
         }
     }
@@ -80,7 +85,7 @@ public class RootController extends AbstractUserController {
             return "profile";
         } else {
             status.setComplete();
-            super.create(UserUtil.createFromTo(userTo));
+            userController.create(UserUtil.createFromTo(userTo));
             return "redirect:login?message=app.registered";
         }
     }

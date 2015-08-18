@@ -33,7 +33,7 @@ public class UserTo {
 
     @Min(1)
     @NotNull
-    protected int caloriesPerDay;
+    protected int caloriesPerDay = 2000;
 
     public void setId(int id) {
         this.id = id;

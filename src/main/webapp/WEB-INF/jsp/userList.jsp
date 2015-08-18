@@ -96,6 +96,13 @@
         }
     }
 
+
+    function updateTable() {
+        $.get(ajaxUrl, function(data) {
+            updateByData(data);
+        })
+    }
+
 /*
     function refresh(){
         $(':checkbox').each(function () {

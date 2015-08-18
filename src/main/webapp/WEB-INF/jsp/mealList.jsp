@@ -21,21 +21,26 @@
                     <div class="form-group">
                         <label class="control-label col-xs-3">From date:</label>
                         <div class="col-xs-3">
-                            <input id="startDate" name="startDate" placeholder="Start Date" class="form-control date-picker" type="date"/>
+                            <input id="startDate" name="startDate" placeholder="Start Date" class="form-control date-picker" type="text"/>
                         </div>
-                        <label class="control-label col-xs-3">From date:</label>
+                        <label class="control-label col-xs-3">To date:</label>
                         <div class="col-xs-3">
-                            <input id="endDate" name="endDate" placeholder="End Date" class="form-control date-picker" type="date"/>
+                            <input id="endDate" name="endDate" placeholder="End Date" class="form-control date-picker" type="text"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-3">From time:</label>
                         <div class="col-xs-3">
-                            <input id="startTime" name="startTime" placeholder="Start Time" class="form-control time-picker" type="time"/>
+                            <input id="startTime" name="startTime" placeholder="Start Time" class="form-control time-picker" type="text"/>
                         </div>
-                        <label class="control-label col-xs-3">From date:</label>
+                        <label class="control-label col-xs-3">To time:</label>
                         <div class="col-xs-3">
-                            <input id="endTime" name="endTime" placeholder="End Time" class="form-control time-picker" type="time"/>
+                            <input id="endTime" name="endTime" placeholder="End Time" class="form-control time-picker" type="text"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn btn-primary pull-right">Filter</button>
                         </div>
                     </div>
                 </form:form>
@@ -111,6 +116,33 @@
         $('#dateTime').datetimepicker({
             format: 'Y-m-d H:i',
             lang:'ru'
+        });
+        $('.date-picker').datetimepicker({
+            timepicker:false,
+            format: 'Y-m-d',
+            lang:'ru'
+        });
+        $('.time-picker').datetimepicker({
+            datepicker:false,
+            format: 'H:i',
+            lang:'ru'
+        });
+
+        $("#filter").submit(function() {
+            updateTable()
+            return false
+        })
+    }
+
+    function updateTable() {
+        var frm = $('#filter');
+        $.ajax({
+            type: "POST",
+            url: frm.attr("action"),
+            data: frm.serialize(),
+            success: function(data) {
+                updateByData(data)
+            }
         });
     }
 
