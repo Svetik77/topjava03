@@ -68,12 +68,6 @@ function updateTableWithData(data) {
     });
     oTable_datatable.fnDraw();
 }
-        $.each(data,function (key, item) {
-            oTable_datatable.fnAddData(item);
-        });
-        oTable_datatable.fnDraw();
-    });
-}
 
 function save() {
     $.ajax({
