@@ -1,4 +1,4 @@
-# topjava
+# Calories Management
 
 vvp.kiev.ua
 
