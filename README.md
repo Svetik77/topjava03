@@ -1,4 +1,4 @@
 # Calories Management
 
-vvp.kiev.ua
+http://vvp.kiev.ua/calories
 
